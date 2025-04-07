@@ -24,6 +24,10 @@ Java 를 이용해 Android 환경에서 구동되는 Vampire Survivors 류의 �
 | :---: | :---: |
 | 보스몬스터 | 게임오바 |
 
+| ![사진5](sample_img/vam_sur_5.jpg) |
+| :---: |
+| 조작 및 UI |
+
 ### 개발 범위
 - 캐릭터 조작
 - 아이템
