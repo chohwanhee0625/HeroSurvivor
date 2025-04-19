@@ -6,6 +6,10 @@ android {
     namespace = "kr.ac.tukorea.ge.and.great1625.herosurvivor"
     compileSdk = 35
 
+    buildFeatures {
+        buildConfig = true
+    }
+
     defaultConfig {
         applicationId = "kr.ac.tukorea.ge.and.great1625.herosurvivor"
         minSdk = 24
@@ -33,6 +37,7 @@ android {
 
 dependencies {
 
+    implementation(project(":a2dg"))
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
