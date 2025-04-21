@@ -56,6 +56,7 @@ public class JoyStick implements IGameObject {
                 pts = Metrics.fromScreen(event.getX(), event.getY());
                 startX = pts[0];
                 startY = pts[1];
+                setPosition(startX, startY);
                 RectUtil.setRect(thumbRect, x, y, thumb_radius);
                 power = 0;
                 return true;
@@ -83,5 +84,12 @@ public class JoyStick implements IGameObject {
                 return true;
         }
         return false;
+    }
+
+    private void setPosition(float start_x, float start_y) {
+        x = start_x;
+        y = start_y;
+        float r = bg_radius;
+        bgRect.set(x-r, y-r, x+r, y+r);
     }
 }

@@ -10,7 +10,7 @@ public class MainScene extends Scene {
     private final Player player;
     private final JoyStick joyStick;
     public MainScene() {
-        this.joyStick = new JoyStick(R.mipmap.joystick_bg, R.mipmap.joystick_thumb, 100, 1500, 100, 30, 80);
+        this.joyStick = new JoyStick(R.mipmap.joystick_bg, R.mipmap.joystick_thumb, 0, 0, 150, 70, 80);
         add(joyStick);
 
         this.player = new Player(joyStick);
