@@ -50,7 +50,8 @@ public class Player extends Sprite {
             return;
         }
 
-        float distance = SPEED * GameView.frameTime;
+//        float distance = SPEED * GameView.frameTime;
+        float distance = SPEED * joyStick.power * GameView.frameTime;
 
         final int way = 8;
         final double TWO_PI = Math.PI * 2;
