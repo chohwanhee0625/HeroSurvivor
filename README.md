@@ -115,7 +115,7 @@ Java 를 이용해 Android 환경에서 구동되는 Vampire Survivors 류의 �
 
 ## 중간발표
 
-| ![사진6](sample_img/commit_insights.png) | ![사진7](sample_img/commit_table.png) |
+| ![사진6](sample_img/commit_insights_0512.png) | ![사진7](sample_img/commit_table.png) |
 | :---: | :---: |
 | Insights-commit | 주차별 커밋 통계 |
 
