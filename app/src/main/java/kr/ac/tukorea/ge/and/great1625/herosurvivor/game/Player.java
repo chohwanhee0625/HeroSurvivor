@@ -16,7 +16,7 @@ import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.GameView;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.Metrics;
 
 public class Player extends Sprite {
-    private static final float PLANE_WIDTH = 100.f;
+    private static final float PLANE_WIDTH = 80.f;
     private static final float PLANE_HEIGHT = PLANE_WIDTH * 348.f / 184.f;
     private static final float SPEED = 800f;
     private float x, y, angle;

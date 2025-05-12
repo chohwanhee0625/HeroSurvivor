@@ -9,12 +9,18 @@ import kr.ac.tukorea.ge.spgp2025.a2dg.framework.scene.Scene;
 public class MainScene extends Scene {
     private final Player player;
     private final JoyStick joyStick;
+
+    public enum Layer {
+        bg1, enemy, item, player, ui, controller;
+        public static final int COUNT = values().length;
+    }
+
     public MainScene() {
         this.joyStick = new JoyStick(R.mipmap.joystick_bg, R.mipmap.joystick_thumb, 0, 0, 150, 70, 80);
-        add(joyStick);
+        add(Layer.controller, joyStick);
 
         this.player = new Player(joyStick);
-        add(player);
+        add(Layer.player, player);
         //add(new EnemyGenerator());
     }
 

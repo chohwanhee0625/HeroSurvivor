@@ -6,4 +6,6 @@
     <color name="light_blue_600">#FF039BE5</color>
     <color name="gray_400">#FFBDBDBD</color>
     <color name="gray_600">#FF757575</color>
+    <color name="enemy_gauge_bg">#F5AAA4</color>
+    <color name="enemy_gauge_fg">#2B95F1</color>
 </resources>
