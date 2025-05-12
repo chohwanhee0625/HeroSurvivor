@@ -23,15 +23,15 @@ public class Enemy extends AnimSprite implements IRecyclable, IBoxCollidable, IL
     private int life, maxLife;
     protected RectF collisionRect = new RectF();
     protected static Gauge gauge = new Gauge(0.1f, R.color.enemy_gauge_fg, R.color.enemy_gauge_bg);
-    public static Enemy get(int level, int index) {
-        return Scene.top().getRecyclable(Enemy.class).init(level, index);
+    public static Enemy get(int level, float x, float y) {
+        return Scene.top().getRecyclable(Enemy.class).init(level, x, y);
     }
     public Enemy() {
         super(0, 0, 0);
     }
-    private Enemy init(int level, int index) {
+    private Enemy init(int level, float x, float y) {
         this.setImageResourceId(resIds[level], 10);
-        setPosition(Metrics.width / 10 * (2 * index + 1), -RADIUS, RADIUS);
+        setPosition(x, y, RADIUS);
         updateCollisionRect();
         this.level = level;
         this.life = this.maxLife = (level + 1) * 10;
@@ -50,12 +50,8 @@ public class Enemy extends AnimSprite implements IRecyclable, IBoxCollidable, IL
 
     @Override
     public void update() {
-        super.update();
-        if (dstRect.top > Metrics.height) {
-            Scene.top().remove(this);
-        } else {
-            updateCollisionRect();
-        }
+        //super.update();
+        updateCollisionRect();
     }
 
     @Override

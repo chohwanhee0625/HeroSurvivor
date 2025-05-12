@@ -6,6 +6,7 @@ import kr.ac.tukorea.ge.and.great1625.herosurvivor.R;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.Background;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.JoyStick;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.scene.Scene;
+import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.Metrics;
 
 public class MainScene extends Scene {
     private final Player player;
@@ -17,6 +18,8 @@ public class MainScene extends Scene {
     }
 
     public MainScene() {
+        push();
+
         initLayers(Layer.COUNT);
 
         add(Layer.bg1, new Background(R.mipmap.map_plain));
@@ -27,6 +30,8 @@ public class MainScene extends Scene {
         this.player = new Player(joyStick);
         add(Layer.player, player);
         //add(new EnemyGenerator());
+
+        add(Layer.enemy, Enemy.get(0, Metrics.width / 2, Metrics.height / 2));
     }
 
     // Overridables
