@@ -9,7 +9,7 @@ import kr.ac.tukorea.ge.spgp2025.a2dg.framework.scene.Scene;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.Metrics;
 
 public class MainScene extends Scene {
-    private final Player player;
+    public final Player player;
     private final JoyStick joyStick;
 
     public enum Layer {

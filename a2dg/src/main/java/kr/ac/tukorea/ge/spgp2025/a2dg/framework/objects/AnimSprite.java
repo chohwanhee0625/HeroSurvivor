@@ -26,7 +26,7 @@ public class AnimSprite extends Sprite {
         int imageWidth = bitmap.getWidth();
         int imageHeight = bitmap.getHeight();
         if (frameCount == 0) {
-            this.frameWidth = imageHeight;
+            this.frameWidth = imageWidth;
             this.frameHeight = imageHeight;
             this.frameCount = imageWidth / imageHeight;
         } else {

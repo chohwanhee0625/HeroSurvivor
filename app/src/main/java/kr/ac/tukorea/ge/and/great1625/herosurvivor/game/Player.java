@@ -19,7 +19,9 @@ public class Player extends Sprite {
     private static final float PLANE_WIDTH = 80.f;
     private static final float PLANE_HEIGHT = PLANE_WIDTH * 348.f / 184.f;
     private static final float SPEED = 800f;
-    private float x, y, angle;
+    public float x;
+    public float y;
+    private float angle;
     private static final float FIRE_INTERVAL = 0.25f;
     private float fireCoolTime = FIRE_INTERVAL;
     private static final float BULLET_OFFSET = 80f;

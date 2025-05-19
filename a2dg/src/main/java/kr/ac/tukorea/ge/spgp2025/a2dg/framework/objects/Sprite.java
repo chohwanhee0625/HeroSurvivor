@@ -29,13 +29,13 @@ public class Sprite implements IGameObject {
     public void setImageResourceId(int mipmapId) {
         bitmap = BitmapPool.get(mipmapId);
     }
+
     public void setPosition(float x, float y, float radius) {
         this.x = x;
         this.y = y;
         this.width = this.height = 2 * radius;
         this.radius = radius;
         RectUtil.setRect(dstRect, x, y, radius);
-
     }
     public void setPosition(float x, float y, float width, float height) {
         this.x = x;
