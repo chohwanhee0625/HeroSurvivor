@@ -9,15 +9,12 @@ import android.view.MotionEvent;
 import kr.ac.tukorea.ge.and.great1625.herosurvivor.R;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.JoyStick;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.Sprite;
-import kr.ac.tukorea.ge.spgp2025.a2dg.framework.res.BitmapPool;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.scene.Scene;
-import kr.ac.tukorea.ge.spgp2025.a2dg.framework.util.RectUtil;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.GameView;
-import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.Metrics;
 
 public class Player extends Sprite {
-    private static final float PLANE_WIDTH = 80.f;
-    private static final float PLANE_HEIGHT = PLANE_WIDTH * 348.f / 184.f;
+    private static final float PLAYER_WIDTH = 80.f;
+    private static final float PLAYER_HEIGHT = PLAYER_WIDTH * 348.f / 184.f;
     private static final float SPEED = 800f;
     public float x;
     public float y;
@@ -34,15 +31,10 @@ public class Player extends Sprite {
     private Bitmap sparkBitmap;
     private final JoyStick joyStick;
 
-    public Player(JoyStick joyStick) {
+    public Player(JoyStick joyStick, float startX, float startY) {
         super(R.mipmap.avatar09);
-        setPosition(Metrics.width / 2, 2 * Metrics.height / 3, PLANE_WIDTH, PLANE_HEIGHT);
         this.joyStick = joyStick;
-
-        float x = Metrics.width / 2;
-        float y = 2 * Metrics.height / 3;
-        setPosition(x, y);
-
+        setPosition(startX, startY);
         angle = -90;
     }
 
@@ -61,6 +53,13 @@ public class Player extends Sprite {
         x += (float) (distance * Math.cos(eightWayAngle));
         y += (float) (distance * Math.sin(eightWayAngle));
 
+        float w_r = PLAYER_WIDTH / 2f;
+        float h_r = PLAYER_HEIGHT / 2f;
+
+        MainScene scene = (MainScene) Scene.top();
+        x = Math.max(w_r, Math.min(x, scene.backgroundWidth - w_r));
+        y = Math.max(h_r, Math.min(y, scene.backgroundHeight - h_r));
+
         setPosition(x, y);
 
         angle = (float) Math.toDegrees(eightWayAngle) + 90;
@@ -73,8 +72,8 @@ public class Player extends Sprite {
     }
 
     public void setPosition(float x, float y) {
-        float w_r = PLANE_WIDTH / 2;
-        float h_r = PLANE_HEIGHT / 2;
+        float w_r = PLAYER_WIDTH / 2;
+        float h_r = PLAYER_HEIGHT / 2;
         dstRect.set(x-w_r, y-h_r, x+w_r, y+h_r);
 
         this.x = x;

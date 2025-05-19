@@ -80,14 +80,14 @@ public class Enemy extends AnimSprite implements IRecyclable, IBoxCollidable, IL
             if ((dx < 0 && nextX < targetX) || (dx > 0 && nextX > targetX)) {
                 adjX = targetX;
             } else {
-                adjX = Math.max(width, Math.min(nextX, Metrics.width  - width));
+                adjX = Math.max(0, Math.min(nextX, scene.backgroundWidth - width));
             }
 
             float adjY;
             if ((dy < 0 && nextY < targetY) || (dy > 0 && nextY > targetY)) {
                 adjY = targetY;
             } else {
-                adjY = Math.max(height, Math.min(nextY, Metrics.height - height));
+                adjY = Math.max(0, Math.min(nextY, scene.backgroundHeight - height));
             }
 
             setPosition(adjX, adjY, width, height);
