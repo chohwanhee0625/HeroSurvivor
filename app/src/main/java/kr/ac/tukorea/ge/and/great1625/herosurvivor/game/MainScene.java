@@ -5,7 +5,10 @@ import android.view.MotionEvent;
 
 import kr.ac.tukorea.ge.and.great1625.herosurvivor.R;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IGameObject;
+import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.HPBar;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.JoyStick;
+import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.Score;
+import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.Sprite;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.scene.Scene;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.GameView;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.Metrics;
@@ -15,9 +18,11 @@ public class MainScene extends Scene {
     private final JoyStick joyStick;
     public final float backgroundWidth;
     public final float backgroundHeight;
+    protected final Score score;
+    protected final HPBar hpBar;
 
     public enum Layer {
-        bg1, enemy, item, player, ui, controller;
+        bg1, enemy, item, player, sword, score, ui, controller;
         public static final int COUNT = values().length;
     }
 
@@ -39,9 +44,14 @@ public class MainScene extends Scene {
         this.player = new Player(joyStick, startX, startY);
         add(Layer.player, player);
 
-        add(Layer.enemy, new EnemyGenerator((int)backgroundWidth, (int)backgroundHeight));
+        add(Layer.controller, new EnemyGenerator((int)backgroundWidth, (int)backgroundHeight));
 
-//        add(Layer.enemy, Enemy.get(0, startX, startY - 300));
+        score = new Score(R.mipmap.number_24x32, Metrics.width - 50, 50, 50);
+        score.setScore(0);
+        add(Layer.score, score);
+
+        hpBar = new HPBar(20, 20, 400);
+        add(Layer.ui, hpBar);
     }
 
     // Overridables
@@ -64,4 +74,12 @@ public class MainScene extends Scene {
     public boolean onTouchEvent(MotionEvent event) {
         return joyStick.onTouch(event);
     }
+
+    @Override
+    public boolean onBackPressed() {
+//        new PauseScene().push();
+        return true;
+    }
+
+
 }

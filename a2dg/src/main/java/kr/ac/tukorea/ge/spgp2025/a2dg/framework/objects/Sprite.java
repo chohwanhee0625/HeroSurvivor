@@ -88,7 +88,8 @@ public class Sprite implements IGameObject {
         float timedDy = dy * GameView.frameTime;
         x += timedDx;
         y += timedDy;
-        dstRect.offset(timedDx, timedDy);
+//        dstRect.offset(timedDx, timedDy);
+        RectUtil.setRect(dstRect, x, y, width, height);
     }
 
     @Override

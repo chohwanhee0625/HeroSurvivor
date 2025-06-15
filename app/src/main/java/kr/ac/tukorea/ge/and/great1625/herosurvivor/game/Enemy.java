@@ -69,6 +69,10 @@ public class Enemy extends AnimSprite implements IRecyclable, IBoxCollidable, IL
         return life <= 0;
     }
 
+    public int score() {
+        return 50;
+    }
+
     @Override
     public void update() {
         //super.update();
