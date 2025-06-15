@@ -92,4 +92,5 @@ public class JoyStick implements IGameObject {
         float r = bg_radius;
         bgRect.set(x-r, y-r, x+r, y+r);
     }
+
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Choreographer;
@@ -46,6 +47,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
 
     private void init() {
         GameView.view = this;
+        GameView.previousNanos = 0;
         // 실질적 생성자 역할
         scheduleUpdate();
     }
@@ -98,7 +100,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
         int last = sceneStack.size() - 1;
         if (last < 0) return;
         sceneStack.get(last).onExit();
-        sceneStack.add(scene);
+        sceneStack.set(last, scene);
         scene.onEnter();
     }
     public Scene getTopScene() {
@@ -125,14 +127,22 @@ public class GameView extends View implements Choreographer.FrameCallback {
         if (drawsDebugStuffs) {
             drawDebugBackground(canvas);
         }
-        Scene scene = getTopScene();
-        if (scene != null) {
-            scene.draw(canvas);
+        int topSceneIndex = sceneStack.size() - 1;
+        if (topSceneIndex >= 0) {
+            draw(canvas, topSceneIndex);
         }
         canvas.restore();
         if (drawsDebugStuffs) {
-            drawDebugInfo(canvas, scene);
+            drawDebugInfo(canvas);
         }
+    }
+
+    private void draw(Canvas canvas, int sceneIndex) {
+        Scene scene = sceneStack.get(sceneIndex);
+        if (scene.isTransparent()) {
+            draw(canvas, sceneIndex - 1);
+        }
+        scene.draw(canvas);
     }
 
     @Override
@@ -203,6 +213,7 @@ public class GameView extends View implements Choreographer.FrameCallback {
 
     public void destroyGame() {
         popAllScenes();
+        view = null;
     }
 
     private Paint borderPaint, gridPaint, fpsPaint;
@@ -227,15 +238,20 @@ public class GameView extends View implements Choreographer.FrameCallback {
             canvas.drawLine(0, y, Metrics.width, y, gridPaint);
         }
     }
-    private void drawDebugInfo(Canvas canvas, Scene scene) {
+    private void drawDebugInfo(Canvas canvas) {
         if (fpsPaint == null) {
             fpsPaint = new Paint();
             fpsPaint.setColor(Color.BLUE);
-            fpsPaint.setTextSize(100f);
+            fpsPaint.setTypeface(Typeface.MONOSPACE);
+            fpsPaint.setTextSize(80f);
         }
 
+        int topSceneIndex = sceneStack.size() - 1;
+        Scene scene = topSceneIndex >= 0 ? sceneStack.get(topSceneIndex) : null;
         int fps = (int) (1.0f / frameTime);
         int count = scene != null ? scene.count() : 0;
-        canvas.drawText("FPS: " + fps + " objs: " + count, 100f, 200f, fpsPaint);
+        String countsForLayers = scene != null ? scene.getDebugCounts() : "";
+        canvas.drawText("FPS: " + fps, 80f, 80f, fpsPaint);
+        canvas.drawText(count + " " + countsForLayers, 80f, 160f, fpsPaint);
     }
 }

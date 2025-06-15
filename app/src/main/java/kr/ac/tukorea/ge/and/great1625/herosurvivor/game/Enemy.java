@@ -20,8 +20,10 @@ public class Enemy extends AnimSprite implements IRecyclable, IBoxCollidable, IL
 
     private static final float SPEED = 300f;
     private static final float SCALE = 0.5f;
+    private static final float WIDTH = 1125f / 10;
+    private static final float HEIGHT = 255f / 2;
     private static final int[] resIds = {
-            R.mipmap.slime01
+            R.mipmap.slime_anime
     };
     //public static final int MAX_LEVEL = resIds.length - 1;
     private int level;
@@ -32,11 +34,11 @@ public class Enemy extends AnimSprite implements IRecyclable, IBoxCollidable, IL
         return Scene.top().getRecyclable(Enemy.class).init(level, x, y);
     }
     public Enemy() {
-        super(0, 0, 0);
+        super( R.mipmap.slime_anime, 10, 5);
+        setPosition(0, 0, WIDTH, HEIGHT);
     }
     private Enemy init(int level, float x, float y) {
-        this.setImageResourceId(resIds[level], 10);
-        setPosition(x, y, bitmap.getWidth() * SCALE, bitmap.getHeight() * SCALE);
+        setPosition(x, y);
         Log.d(TAG, "width = " + width + ", height = " + height);
         updateCollisionRect();
         this.level = level;
@@ -90,7 +92,7 @@ public class Enemy extends AnimSprite implements IRecyclable, IBoxCollidable, IL
                 adjY = Math.max(0, Math.min(nextY, scene.backgroundHeight - height));
             }
 
-            setPosition(adjX, adjY, width, height);
+            setPosition(adjX, adjY);
         }
 
         updateCollisionRect();
@@ -99,7 +101,7 @@ public class Enemy extends AnimSprite implements IRecyclable, IBoxCollidable, IL
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
-        float gauge_width = width * 0.7f;
+        float gauge_width = WIDTH * 0.7f;
         float gauge_x = x - gauge_width / 2;
         float gauge_y = dstRect.bottom;
         gauge.draw(canvas,gauge_x, gauge_y, gauge_width, (float)life / maxLife);

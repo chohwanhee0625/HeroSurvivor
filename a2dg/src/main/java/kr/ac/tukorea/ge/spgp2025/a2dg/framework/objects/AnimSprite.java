@@ -8,25 +8,25 @@ public class AnimSprite extends Sprite {
     protected int frameCount;
     protected int frameWidth;
     protected int frameHeight;
-    protected final long createdOn;
+    protected long createdOn;
     public AnimSprite(int mipmapId, float fps) {
         this(mipmapId, fps, 0);
     }
     public AnimSprite(int mipmapId, float fps, int frameCount) {
         super(mipmapId);
+        this.fps = fps;
         srcRect = new Rect();
         createdOn = System.currentTimeMillis();
         if (bitmap != null) {
-            setFrameInfo(fps, frameCount);
+            setFrameInfo(frameCount);
         }
     }
 
-    private void setFrameInfo(float fps, int frameCount) {
-        this.fps = fps;
+    private void setFrameInfo(int frameCount) {
         int imageWidth = bitmap.getWidth();
         int imageHeight = bitmap.getHeight();
         if (frameCount == 0) {
-            this.frameWidth = imageWidth;
+            this.frameWidth = imageHeight;
             this.frameHeight = imageHeight;
             this.frameCount = imageWidth / imageHeight;
         } else {
@@ -40,9 +40,13 @@ public class AnimSprite extends Sprite {
     }
     public void setImageResourceId(int mipmapId, float fps, int frameCount) {
         super.setImageResourceId(mipmapId);
-        setFrameInfo(fps, frameCount);
+        this.fps = fps;
+        setFrameInfo(frameCount);
     }
 
+    public void setFps(float fps) {
+        this.fps = fps;
+    }
     @Override
     public void draw(Canvas canvas) {
         // AnimSprite 는 단순반복하는 이미지이므로 time 을 update 에서 꼼꼼히 누적하지 않아도 된다.
