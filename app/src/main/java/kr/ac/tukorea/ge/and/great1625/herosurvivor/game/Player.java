@@ -9,6 +9,7 @@ import kr.ac.tukorea.ge.and.great1625.herosurvivor.R;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.AnimSprite;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.JoyStick;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.scene.Scene;
+import kr.ac.tukorea.ge.spgp2025.a2dg.framework.util.Gauge;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.GameView;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.Metrics;
 
@@ -23,6 +24,7 @@ public class Player extends AnimSprite {
     public float y;
     private float angle;
     private final JoyStick joyStick;
+    protected static Gauge gauge = new Gauge(0.1f, R.color.player_gauge_fg, R.color.player_gauge_bg);
 
     public Player(JoyStick joyStick, float startX, float startY) {
         super(R.mipmap.player_idle, 5, 4);
@@ -37,7 +39,6 @@ public class Player extends AnimSprite {
             return;
         }
 
-//        float distance = SPEED * GameView.frameTime;
         float distance = SPEED * joyStick.power * GameView.frameTime;
 
         final int way = 8;

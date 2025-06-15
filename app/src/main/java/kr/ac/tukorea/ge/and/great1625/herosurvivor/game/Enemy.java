@@ -22,10 +22,12 @@ public class Enemy extends AnimSprite implements IRecyclable, IBoxCollidable, IL
     private static final float WIDTH = 100f;
     private static final float HEIGHT = 100f;
     private static final int[] resIds = {
-            R.mipmap.slime01
+            R.mipmap.slime01, R.mipmap.slime02, R.mipmap.golem01, R.mipmap.golem02, R.mipmap.float_golem01,
+            R.mipmap.float_golem02, R.mipmap.dragon01, R.mipmap.dragon02, R.mipmap.float_dragon01
     };
     private static final int[] resIds_rev = {
-            R.mipmap.slime01_rev
+            R.mipmap.slime01_rev, R.mipmap.slime02_rev, R.mipmap.golem01_rev, R.mipmap.golem02_rev, R.mipmap.float_golem01_rev,
+            R.mipmap.float_golem02_rev, R.mipmap.dragon01_rev, R.mipmap.dragon02_rev, R.mipmap.float_dragon01_rev
     };
 
     public static final int MAX_TYPE = resIds.length;
@@ -50,11 +52,11 @@ public class Enemy extends AnimSprite implements IRecyclable, IBoxCollidable, IL
     private Enemy init(int type, float x, float y) {
         setPosition(x, y);
         setImageResourceId(resIds[type]);
+        setFrameInfo(4);
         this.type = type;
         Log.d(TAG, "width = " + width + ", height = " + height);
         updateCollisionRect();
         this.life = this.maxLife = 100;
-        dy = SPEED;
         return this;
     }
 

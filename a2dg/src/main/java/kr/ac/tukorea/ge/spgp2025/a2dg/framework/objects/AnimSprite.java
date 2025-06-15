@@ -22,7 +22,7 @@ public class AnimSprite extends Sprite {
         }
     }
 
-    private void setFrameInfo(int frameCount) {
+    public void setFrameInfo(int frameCount) {
         int imageWidth = bitmap.getWidth();
         int imageHeight = bitmap.getHeight();
         if (frameCount == 0) {

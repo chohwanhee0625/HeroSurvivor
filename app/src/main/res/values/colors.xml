@@ -8,4 +8,6 @@
     <color name="gray_600">#FF757575</color>
     <color name="enemy_gauge_bg">#000000</color>
     <color name="enemy_gauge_fg">#FF0000</color>
+    <color name="player_gauge_bg">@color/gray_400</color>
+    <color name="player_gauge_fg">@color/light_blue_400</color>
 </resources>
