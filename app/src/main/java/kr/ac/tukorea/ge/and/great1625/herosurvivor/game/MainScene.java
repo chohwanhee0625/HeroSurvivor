@@ -38,9 +38,10 @@ public class MainScene extends Scene {
         float startY = backgroundHeight * 0.5f;
         this.player = new Player(joyStick, startX, startY);
         add(Layer.player, player);
-        //add(new EnemyGenerator());
 
-        add(Layer.enemy, Enemy.get(0, startX, startY - 300));
+        add(Layer.enemy, new EnemyGenerator((int)backgroundWidth, (int)backgroundHeight));
+
+//        add(Layer.enemy, Enemy.get(0, startX, startY - 300));
     }
 
     // Overridables
@@ -57,30 +58,6 @@ public class MainScene extends Scene {
         // 맵 밖으로 나가지 않도록 클램핑
         camX = Math.max(0, Math.min(camX, backgroundWidth  - Metrics.width));
         camY = Math.max(0, Math.min(camY, backgroundHeight - Metrics.height));
-    }
-
-    @Override
-    public void draw(Canvas canvas) {
-        //super.draw(canvas);
-
-        canvas.save();
-        canvas.translate(-camX, -camY);
-
-        for (Layer layer : Layer.values()) {
-            if (layer == Layer.ui || layer == Layer.controller) break;
-            for (IGameObject obj : layers.get(layer.ordinal())) {
-                obj.draw(canvas);
-            }
-        }
-        canvas.restore();
-
-        for (Layer layer : Layer.values()) {
-            if (layer == Layer.ui || layer == Layer.controller) {
-                for (IGameObject obj : layers.get(layer.ordinal())) {
-                    obj.draw(canvas);
-                }
-            }
-        }
     }
 
     @Override

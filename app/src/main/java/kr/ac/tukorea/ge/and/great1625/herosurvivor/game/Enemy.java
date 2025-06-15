@@ -18,15 +18,20 @@ import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.Metrics;
 public class Enemy extends AnimSprite implements IRecyclable, IBoxCollidable, ILayerProvider<MainScene.Layer> {
     protected static final String TAG = Enemy.class.getSimpleName();
 
-    private static final float SPEED = 300f;
-    private static final float SCALE = 0.5f;
-    private static final float WIDTH = 1125f / 10;
-    private static final float HEIGHT = 255f / 2;
+    private static final float SPEED = 250f;
+    private static final float WIDTH = 100f;
+    private static final float HEIGHT = 100f;
     private static final int[] resIds = {
-            R.mipmap.slime_anime
+            R.mipmap.slime01
     };
+    private static final int[] resIds_rev = {
+            R.mipmap.slime01_rev
+    };
+
+    public static final int MAX_TYPE = resIds.length;
+
     //public static final int MAX_LEVEL = resIds.length - 1;
-    private int level;
+    private int type;
     private int life, maxLife;
     protected RectF collisionRect = new RectF();
     protected static Gauge gauge = new Gauge(0.1f, R.color.enemy_gauge_fg, R.color.enemy_gauge_bg);
@@ -34,21 +39,27 @@ public class Enemy extends AnimSprite implements IRecyclable, IBoxCollidable, IL
         return Scene.top().getRecyclable(Enemy.class).init(level, x, y);
     }
     public Enemy() {
-        super( R.mipmap.slime_anime, 10, 5);
+        super( R.mipmap.slime01, 5, 4);
         setPosition(0, 0, WIDTH, HEIGHT);
     }
-    private Enemy init(int level, float x, float y) {
+
+    public static Enemy get(int type, int x, int y) {
+        return Scene.top().getRecyclable(Enemy.class).init(type, x, y);
+    }
+
+    private Enemy init(int type, float x, float y) {
         setPosition(x, y);
+        setImageResourceId(resIds[type]);
+        this.type = type;
         Log.d(TAG, "width = " + width + ", height = " + height);
         updateCollisionRect();
-        this.level = level;
-        this.life = this.maxLife = (level + 1) * 10;
+        this.life = this.maxLife = 100;
         dy = SPEED;
         return this;
     }
 
     public int getScore() {
-        return (level + 1) * 100;
+        return (type + 1) * 100;
     }
 
     public boolean decreaseLife(int power) {
@@ -75,6 +86,12 @@ public class Enemy extends AnimSprite implements IRecyclable, IBoxCollidable, IL
             float dx = (vx / len) * moveDist;
             float dy = (vy / len) * moveDist;
 
+            if (dx > 0) {
+                setImageResourceId(resIds_rev[type]);
+            } else if (dx < 0) {
+                setImageResourceId(resIds[type]);
+            }
+
             float nextX = this.x + dx;
             float nextY = this.y + dy;
 
@@ -100,11 +117,18 @@ public class Enemy extends AnimSprite implements IRecyclable, IBoxCollidable, IL
 
     @Override
     public void draw(Canvas canvas) {
+        MainScene scene = (MainScene) Scene.top();
+        float camX = scene.camX;
+        float camY = scene.camY;
+
+        canvas.save();
+        canvas.translate(-camX, -camY);
         super.draw(canvas);
         float gauge_width = WIDTH * 0.7f;
         float gauge_x = x - gauge_width / 2;
         float gauge_y = dstRect.bottom;
         gauge.draw(canvas,gauge_x, gauge_y, gauge_width, (float)life / maxLife);
+        canvas.restore();
     }
 
     private void updateCollisionRect() {

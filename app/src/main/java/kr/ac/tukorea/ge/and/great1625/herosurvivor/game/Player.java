@@ -1,38 +1,31 @@
 package kr.ac.tukorea.ge.and.great1625.herosurvivor.game;
 
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.RectF;
+import android.graphics.Rect;
 import android.view.MotionEvent;
 
 
 import kr.ac.tukorea.ge.and.great1625.herosurvivor.R;
+import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.AnimSprite;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.JoyStick;
-import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.Sprite;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.scene.Scene;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.GameView;
+import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.Metrics;
 
-public class Player extends Sprite {
-    private static final float PLAYER_WIDTH = 80.f;
-    private static final float PLAYER_HEIGHT = PLAYER_WIDTH * 348.f / 184.f;
-    private static final float SPEED = 800f;
+public class Player extends AnimSprite {
+    public enum State {
+        idle, attack
+    }
+    private static final float PLAYER_WIDTH = 160f;
+    private static final float PLAYER_HEIGHT = PLAYER_WIDTH;
+    private static final float SPEED = 300f;
     public float x;
     public float y;
     private float angle;
-    private static final float FIRE_INTERVAL = 0.25f;
-    private float fireCoolTime = FIRE_INTERVAL;
-    private static final float BULLET_OFFSET = 80f;
-
-    private static final float SPARK_OFFSET = 66f;
-    private static final float SPARK_DURATION = 0.1f;
-    private static final float SPARK_WIDTH = 115f;
-    private static final float SPARK_HEIGHT = SPARK_WIDTH * 3 / 5;
-    private RectF sparkRect = new RectF();
-    private Bitmap sparkBitmap;
     private final JoyStick joyStick;
 
     public Player(JoyStick joyStick, float startX, float startY) {
-        super(R.mipmap.avatar09);
+        super(R.mipmap.player_idle, 5, 4);
         this.joyStick = joyStick;
         setPosition(startX, startY);
         angle = -90;
@@ -50,8 +43,16 @@ public class Player extends Sprite {
         final int way = 8;
         final double TWO_PI = Math.PI * 2;
         float eightWayAngle = (float) (Math.round(way * joyStick.angle_radian / TWO_PI) * TWO_PI / way);
-        x += (float) (distance * Math.cos(eightWayAngle));
-        y += (float) (distance * Math.sin(eightWayAngle));
+        float dx = (float) (distance * Math.cos(eightWayAngle));
+        float dy = (float) (distance * Math.sin(eightWayAngle));
+        x += dx;
+        y += dy;
+
+        if (dx > 0) {
+            setImageResourceId(R.mipmap.player_idle_rev);
+        } else if (dx < 0) {
+            setImageResourceId(R.mipmap.player_idle);
+        }
 
         float w_r = PLAYER_WIDTH / 2f;
         float h_r = PLAYER_HEIGHT / 2f;
@@ -68,7 +69,14 @@ public class Player extends Sprite {
 
     @Override
     public void draw(Canvas canvas) {
+        MainScene scene = (MainScene) Scene.top();
+        float camX = scene.camX;
+        float camY = scene.camY;
+
+        canvas.save();
+        canvas.translate(-camX, -camY);
         super.draw(canvas);
+        canvas.restore();
     }
 
     public void setPosition(float x, float y) {

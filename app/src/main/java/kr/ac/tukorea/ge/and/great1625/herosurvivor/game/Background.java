@@ -2,6 +2,7 @@ package kr.ac.tukorea.ge.and.great1625.herosurvivor.game;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.graphics.RectF;
 
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.Sprite;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.scene.Scene;
@@ -17,23 +18,17 @@ public class Background extends Sprite {
 
     @Override
     public void draw(Canvas canvas) {
-        //super.draw(canvas);
         MainScene scene = (MainScene) Scene.top();
-        float px = scene.player.x;
-        float py = scene.player.y;
+        float camX = scene.camX;
+        float camY = scene.camY;
 
-        float camX = px - width / 2f;
-        float camY = py - height / 2f;
-
-        camX = Math.max(0, Math.min(camX, width));
-        camY = Math.max(0, Math.min(camY, height));
-
+        canvas.save();
+        canvas.translate(-camX, -camY);
         Rect src = new Rect((int)camX, (int)camY,
                 (int)(camX + Metrics.width), (int)(camY + Metrics.height));
-
-        Rect dst = new Rect(0, 0, (int)width, (int)height);
-
+        RectF dst = new RectF(0, 0, (int)width, (int)height);
         canvas.drawBitmap(bitmap, src, dst, null);
+        canvas.restore();
     }
 
     public float getWidth() {

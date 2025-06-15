@@ -6,13 +6,16 @@ import kr.ac.tukorea.ge.and.great1625.herosurvivor.BuildConfig;
 import kr.ac.tukorea.ge.and.great1625.herosurvivor.game.MainScene;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.activity.GameActivity;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.GameView;
+import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.Metrics;
 
 public class HeroSurvivorActivity extends GameActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        GameView.drawsDebugStuffs = BuildConfig.DEBUG;
         super.onCreate(savedInstanceState);
+//        GameView.drawsDebugStuffs = BuildConfig.DEBUG;
+        GameView.drawsDebugStuffs = false;
+        Metrics.setGameSize(900, 1600);
         new MainScene().push();
     }
 }
