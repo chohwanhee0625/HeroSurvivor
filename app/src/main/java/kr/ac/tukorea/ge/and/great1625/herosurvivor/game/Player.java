@@ -46,7 +46,7 @@ public class Player extends AnimSprite implements IBoxCollidable, ILayerProvider
     public Player(JoyStick joyStick, float startX, float startY) {
         super(R.mipmap.player_idle, 5, 4);
         this.joyStick = joyStick;
-        setPosition(startX, startY, PLAYER_WIDTH, PLAYER_HEIGHT);
+        setPosition(startX, startY);
     }
 
     @Override
@@ -155,6 +155,7 @@ public class Player extends AnimSprite implements IBoxCollidable, ILayerProvider
 
         this.x = x;
         this.y = y;
+        radius = PLAYER_WIDTH;
         //Log.d(TAG, "x=" + x + " y=" + y + " rect=" + dstRect);
     }
 

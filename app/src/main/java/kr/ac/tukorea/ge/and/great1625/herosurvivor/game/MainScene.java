@@ -9,6 +9,7 @@ import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.HPBar;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.JoyStick;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.Score;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.Sprite;
+import kr.ac.tukorea.ge.spgp2025.a2dg.framework.res.Sound;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.scene.Scene;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.GameView;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.Metrics;
@@ -73,6 +74,7 @@ public class MainScene extends Scene {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         return joyStick.onTouch(event);
+
     }
 
     @Override
@@ -81,5 +83,23 @@ public class MainScene extends Scene {
         return true;
     }
 
+    @Override
+    public void onEnter() {
+        Sound.playMusic(R.raw.main);
+    }
+
+    @Override
+    public void onPause() {
+        Sound.pauseMusic();
+    }
+
+    @Override
+    public void onResume() {
+        Sound.resumeMusic();
+    }
+    @Override
+    public void onExit() {
+        Sound.stopMusic();
+    }
 
 }

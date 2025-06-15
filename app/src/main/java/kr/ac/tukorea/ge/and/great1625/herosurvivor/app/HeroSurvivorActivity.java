@@ -15,7 +15,7 @@ public class HeroSurvivorActivity extends GameActivity {
         super.onCreate(savedInstanceState);
 //        GameView.drawsDebugStuffs = BuildConfig.DEBUG;
         GameView.drawsDebugStuffs = false;
-        Metrics.setGameSize(900, 2000);
+        Metrics.setGameSize(900, 1900);
         new MainScene().push();
     }
 }
