@@ -10,7 +10,7 @@ Java 를 이용해 Android 환경에서 구동되는 Vampire Survivors 류의 �
 
 ### 게임화면
 
-| ![사진1](sample_img/hero_title.jpg) | ![사진2](sample_img/hero_ingame.jpg) |
+| ![사진1](sample_img/hero_title.png) | ![사진2](sample_img/hero_ingame.png) |
 | :---: | :---: |
 | 시작화면 | 인게임 |
 
